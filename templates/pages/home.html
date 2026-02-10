@@ -2,20 +2,105 @@
 {% load static %}
 
 {% block content %}
+
 <section class="site-hero" style="background-image: url(static/images/portfolio.jpg);" id="section-home"
     data-stellar-background-ratio="0.5">
     <div class="container">
         <div class="row intro-text align-items-center justify-content-center">
-            <div class="col-md-10 text-center pt-5">
+            <div class="col-md-10 text-center">
 
                 <h1 class="site-heading site-animate">Hello, I'm <strong class="d-block">Abhisekh Prajapati</strong>
                 </h1>
+                <strong class="d-block text-white text-uppercase" style="background-color: #00000075;">
+                    Python Software Developer | Django |
+                    Django Rest Framework | Fast Api |
+                    CICD | AWS</strong>
                 <strong class="d-block text-white text-uppercase letter-spacing">and this is My Rezume</strong>
-
+                <div class="pt-4">
+                    <a href="#" class="btn btn-primary px-4 py-2 btn-sm smoothscroll">Download CV</a>
+                </div>
             </div>
         </div>
     </div>
 </section> <!-- section -->
+
+
+<!-- Skills Section -->
+<section class="site-section" id="section-skills">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 text-center">
+                <div class="section-heading">
+                    <h2>My <strong>Skills</strong></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Skill Example -->
+            {% for skill, percent in skills.items %}
+            <div class="col-md-4 mb-4">
+                <h5 class="mb-2">{{ skill }}</h5>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ percent }}%;"
+                        aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- Add more skills as needed -->
+        </div>
+    </div>
+</section>
+
+<section class="site-section" id="section-resume">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-5">
+                <div class="section-heading text-center">
+                    <h2>My <strong>Experience</strong></h2>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+
+                <!-- Backend Developer -->
+                <div class="resume-item mb-4">
+                    <span class="date">
+                        <span class="icon-calendar"></span>
+                        June 2024 – Present
+                    </span>
+                    <h3>Python Software Developer</h3>
+                    <p>
+                        Working on backend systems, REST APIs, authentication,
+                        and server-side development using Python, Django, DRF, FastAPI,
+                        CI/CD, AWS, and Docker.
+                    </p>
+                    <span class="school">DigitalAce</span>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="resume-item mb-4">
+                    <span class="date">
+                        <span class="icon-calendar"></span>
+                        Feb 2023 – Aug 2023 (7 Months)
+                    </span>
+                    <h3>Frontend Developer Intern</h3>
+                    <p>
+                        Worked on UI/UX, responsive layouts, and frontend functionality
+                        using HTML, CSS, JavaScript, React Bootstrap, Tailwind Css and UI components.
+                    </p>
+                    <span class="school">Acmacorp Solutions</span>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
 
 <section class="site-section" id="section-portfolio">
     <div class="container">
@@ -149,91 +234,6 @@
     </div>
 </section>
 
-<section class="site-section " id="section-resume">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mb-5">
-                <div class="section-heading text-center">
-                    <h2>My <strong>Resume</strong></h2>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h2 class="mb-5">Education</h2>
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> March 2013 - Present</span>
-                    <h3>Masteral in Information Technology</h3>
-                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                        unorthographic.</p>
-                    <span class="school">New York University</span>
-                </div>
-
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> March 2013 - Present Deacember.</span>
-                    <h3>Masteral in Information Technology</h3>
-                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                        unorthographic.</p>
-                    <span class="school">New York University</span>
-                </div>
-
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> March 2013 - Present</span>
-                    <h3>Masteral in Information Technology</h3>
-                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                        unorthographic.</p>
-                    <span class="school">New York University</span>
-                </div>
-
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> March 2013 - Present Deacember.</span>
-                    <h3>Masteral in Information Technology</h3>
-                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                        unorthographic.</p>
-                    <span class="school">New York University</span>
-                </div>
-
-            </div>
-            <div class="col-md-6">
-
-
-                <h2 class="mb-5">Experience</h2>
-
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> March 2013 - Present</span>
-                    <h3>Lead Product Designer</h3>
-                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                        unorthographic.</p>
-                    <span class="school">Github</span>
-                </div>
-
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> March 2013 - Present</span>
-                    <h3>Lead Product Designer</h3>
-                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                        unorthographic.</p>
-                    <span class="school">Facebook</span>
-                </div>
-
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> March 2013 - Present</span>
-                    <h3>Lead Product Designer</h3>
-                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                        unorthographic.</p>
-                    <span class="school">Twitter</span>
-                </div>
-
-                <div class="resume-item mb-4">
-                    <span class="date"><span class="icon-calendar"></span> March 2013 - Present</span>
-                    <h3>Lead Product Designer</h3>
-                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                        unorthographic.</p>
-                    <span class="school">Shopify</span>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-</section> <!-- .section -->
 
 <section class="site-section" id="section-about">
     <div class="container">
@@ -257,7 +257,6 @@
                 </p>
             </div>
         </div>
-
 
     </div>
 </section>
@@ -388,9 +387,6 @@
                     <p><a href="#" class="site-link">Learn More <i class="icon-chevron-right"></i></a></p>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </section>
@@ -471,13 +467,13 @@
                 <form action="" class="site-form">
                     <h3 class="mb-5">Get In Touch</h3>
                     <div class="form-group">
-                        <input type="text" class="form-control px-3 py-4" placeholder="Your Name">
+                        <input type="text" class="form-control px-3 py-4" placeholder="Your Company Name">
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control px-3 py-4" placeholder="Your Email">
+                        <input type="email" class="form-control px-3 py-4" placeholder="Your Company Email">
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control px-3 py-4" placeholder="Your Phone">
+                        <input type="email" class="form-control px-3 py-4" placeholder="Your Company Phone">
                     </div>
                     <div class="form-group mb-5">
                         <textarea class="form-control px-3 py-4" cols="30" rows="10"
@@ -493,21 +489,17 @@
                 <ul class="site-contact-details">
                     <li>
                         <span class="text-uppercase">Email</span>
-                        site@gmail.com
+                        abhisekhprajapati49@gmail.com
                     </li>
                     <li>
                         <span class="text-uppercase">Phone</span>
-                        +30 976 1382 9921
-                    </li>
-                    <li>
-                        <span class="text-uppercase">Fax</span>
-                        +30 976 1382 9922
+                        +91 8928978422
                     </li>
                     <li>
                         <span class="text-uppercase">Address</span>
-                        San Francisco, CA <br>
-                        4th Floor8 Lower <br>
-                        San Francisco street, M1 50F
+                        Mumbai,<br>
+                        Maharashtra <br>
+                        India
                     </li>
                 </ul>
             </div>
@@ -515,3 +507,215 @@
     </div>
 </section>
 {% endblock content %}
+
+<!-- ====================================================================================================================== -->
+
+{% comment %}
+<!-- Hero / Home Section -->
+<section class="site-hero" style="background-image: url({% static 'images/portfolio.jpg' %});" id="section-home">
+    <div class="container">
+        <div class="row intro-text align-items-center justify-content-center">
+            <div class="col-md-10 text-center">
+                <h1 class="site-heading site-animate">Hello, I'm <strong class="d-block">Abhisekh Prajapati</strong>
+                </h1>
+                <strong class="d-block text-white text-uppercase letter-spacing">
+                    Python Software Developer | Django |
+                    Django Rest Framework | Fast Api
+                    CICD AWS</strong>
+                <div class="pt-4">
+                    <a href="#" class="btn btn-primary px-4 py-2 btn-sm smoothscroll">Download CV</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="site-section" id="section-about">
+    <div class="container">
+        <div class="row mb-5 align-items-center">
+            <div class="col-lg-7 pr-lg-5 mb-5 mb-lg-0">
+                <img src="{% static 'images/profile.jpg' %}" alt="Profile Image" class="img-fluid">
+            </div>
+            <div class="col-lg-5 pl-lg-5">
+                <div class="section-heading">
+                    <h2>About <strong>Me</strong></h2>
+                </div>
+                <p class="lead">I am a passionate Web Developer with experience in building responsive websites and web
+                    applications.</p>
+                <p class="mb-5">I specialize in Frontend & Backend development, working with modern frameworks like
+                    React and Django. I enjoy creating efficient, scalable, and user-friendly solutions.</p>
+                <p>
+                    <a href="#section-contact" class="btn btn-primary px-4 py-2 btn-sm smoothscroll">Hire Me</a>
+                    <a href="#" class="btn btn-secondary px-4 py-2 btn-sm">Download CV</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="site-section" id="section-skills">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 text-center">
+                <div class="section-heading">
+                    <h2>My <strong>Skills</strong></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Skill Example -->
+            <div class="col-md-4">
+                <h4>HTML</h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar" style="width: 90%;"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>CSS</h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar" style="width: 85%;"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>JavaScript</h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar" style="width: 80%;"></div>
+                </div>
+            </div>
+            <!-- Add more skills as needed -->
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section class="site-section" id="section-experience">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 text-center">
+                <div class="section-heading">
+                    <h2>Experience</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Example Experience -->
+            <div class="col-md-12 mb-4">
+                <h3>Lead Product Designer</h3>
+                <span>Github | March 2021 - Present</span>
+                <p>Worked on building scalable web applications, implementing modern frontend frameworks and designing
+                    backend APIs.</p>
+            </div>
+            <div class="col-md-12 mb-4">
+                <h3>Web Developer</h3>
+                <span>Facebook | Jan 2019 - Feb 2021</span>
+                <p>Developed responsive and interactive web applications using Django and React.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section class="site-section" id="section-portfolio">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 text-center">
+                <div class="section-heading">
+                    <h2>Featured <strong>Projects</strong></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Project Example -->
+            <div class="col-md-4 mb-4">
+                <div class="single-portfolio">
+                    <img class="img-fluid" src="{% static 'images/project1.jpg' %}" alt="">
+                    <div class="p-inner mt-2">
+                        <h4>React Web App</h4>
+                        <div class="cat">Frontend</div>
+                        <a href="https://github.com/yourusername/frontend-project" target="_blank">View Project</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="single-portfolio">
+                    <img class="img-fluid" src="{% static 'images/django1.jpg' %}" alt="">
+                    <div class="p-inner mt-2">
+                        <h4>Django REST API</h4>
+                        <div class="cat">Backend</div>
+                        <a href="https://github.com/yourusername/django-api" target="_blank">View Project</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more projects as needed -->
+        </div>
+    </div>
+</section>
+
+<!-- Education / Studies Section -->
+<section class="site-section" id="section-education">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 text-center">
+                <div class="section-heading">
+                    <h2>Education</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <h3>Master in Information Technology</h3>
+                <span>New York University | 2013 - 2015</span>
+                <p>Specialized in software development and system architecture design.</p>
+            </div>
+            <div class="col-md-12 mb-4">
+                <h3>Bachelor in Computer Science</h3>
+                <span>ABC University | 2009 - 2013</span>
+                <p>Focused on programming, web development, and database management.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="site-section" id="section-contact">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 text-center">
+                <div class="section-heading">
+                    <h2>Contact Me</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7 mb-5 mb-md-0">
+                <form action="" class="site-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control px-3 py-4" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control px-3 py-4" placeholder="Your Email">
+                    </div>
+                    <div class="form-group mb-5">
+                        <textarea class="form-control px-3 py-4" cols="30" rows="6"
+                            placeholder="Write a Message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary px-4 py-3" value="Send Message">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-5 pl-md-5">
+                <h3 class="mb-5">My Contact Details</h3>
+                <ul class="site-contact-details">
+                    <li><span class="text-uppercase">Email:</span> abhisekhprajapati49@gmail.com</li>
+                    <li><span class="text-uppercase">Phone:</span> +91 8928978422</li>
+                    <li><span class="text-uppercase">Address:</span> Mumbai, Maharashtra, India</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endcomment %}
