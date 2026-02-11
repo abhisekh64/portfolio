@@ -1,40 +1,46 @@
 #!/bin/bash
+set -e  # Exit on any error
 
-set -e
+# -----------------------------
+# CONFIGURATION
+# -----------------------------
+REQUIREMENTS_FILE="requirements.txt"
+DOCKER_COMPOSE_FILE="docker-compose.yml"
 
-APP_DIR="/home/ec2-user/projects/portfolio"
-GIT_BRANCH="main"
-GITHUB_PAT="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"   # 🔴 replace
-GITHUB_REPO="github.com/username/repo.git"
-
-echo "🚀 Starting Deployment..."
-
-cd $APP_DIR || exit 1
-
-echo "🔐 Setting Git remote with PAT"
-git remote set-url origin https://${GITHUB_PAT}@${GITHUB_REPO}
-
-echo "⬇️ Pulling latest code"
-git pull origin $GIT_BRANCH
-
-if [ ! -f "requirements.txt" ]; then
-  echo "❌ requirements.txt not found!"
-  exit 1
+# -----------------------------
+# CHECK REQUIREMENTS FILE
+# -----------------------------
+if [ ! -f "$REQUIREMENTS_FILE" ]; then
+    echo "❌ ERROR: $REQUIREMENTS_FILE not found! Cannot proceed."
+    exit 1
+else
+    echo "📄 Found $REQUIREMENTS_FILE. Installing packages..."
 fi
 
-echo "🐳 Building Docker images"
-docker compose build
+# -----------------------------
+# INSTALL PACKAGES LOCALLY
+# -----------------------------
+echo "💻 Installing Python packages locally..."
+pip install -r $REQUIREMENTS_FILE --no-input
 
-echo "🧹 Stopping old containers"
-docker compose down
+# -----------------------------
+# DOCKER: Build and Run
+# -----------------------------
+if [ -f "$DOCKER_COMPOSE_FILE" ]; then
+    echo "🐳 Building and running Docker containers..."
+    docker-compose -f $DOCKER_COMPOSE_FILE build
+    docker-compose -f $DOCKER_COMPOSE_FILE up -d
 
-echo "🚀 Starting containers"
-docker compose up -d
+    echo "📦 Running Django migrations..."
+    docker-compose exec web python manage.py migrate
 
-echo "📦 Running migrations"
-docker exec portfolio_dev python manage.py migrate --noinput
+    echo "📂 Collecting static files inside Docker..."
+    docker-compose exec web python manage.py collectstatic --noinput
 
-echo "🎨 Collecting static files"
-docker exec portfolio_dev python manage.py collectstatic --noinput
+    echo "🧪 Running Django tests..."
+    docker-compose exec web python manage.py test
+else
+    echo "⚠️  Docker compose file not found. Skipping Docker steps."
+fi
 
-echo "✅ Deployment Finished Successfully"
+echo "✅ Script completed successfully!"
