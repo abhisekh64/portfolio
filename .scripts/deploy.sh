@@ -39,6 +39,15 @@ docker_exec() {
     docker-compose exec $WEB_SERVICE_NAME bash -c "$CMD"
 }
 
+
+# -----------------------------
+# git pull origin main
+# -----------------------------
+echo "git pull "
+git pull origin main
+echo "git pull origin main completed"
+
+
 # -----------------------------
 # MAIN FLOW
 # -----------------------------
