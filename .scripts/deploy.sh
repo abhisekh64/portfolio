@@ -41,14 +41,6 @@ docker_exec() {
 
 
 # -----------------------------
-# git pull origin main
-# -----------------------------
-echo "git pull "
-git pull origin main
-echo "git pull origin main completed"
-
-
-# -----------------------------
 # MAIN FLOW
 # -----------------------------
 log "Starting deployment script..."
