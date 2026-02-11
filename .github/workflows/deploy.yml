@@ -3,21 +3,23 @@ name: Deploy
 on:
     push:
         branches: ["main"]
-    pull_request:
-        branches: ["main"]
 
 jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
             - name: Deploy to server
-              uses: appleboy/ssh-action@master
+              uses: appleboy/ssh-action@v1.0.0
               with:
                   host: ${{ secrets.HOST }}
                   username: ${{ secrets.USERNAME }}
                   port: ${{ secrets.PORT }}
                   key: ${{ secrets.SSHKEY }}
-                  script: "cd /home/ec2-user/portfolio && ./.scripts/deploy.sh"
+                  script: |
+                      cd /home/ec2-user/portfolio
+                      git pull origin main
+                      docker-compose down
+                      docker-compose up -d --build
+
 # yeh jo scripts hain vo starting se ending tak file ki routing karni padti hain
 # or jab ek baar aap apne project folder mein pahoch jaatein hain to aapko run karna hota hain deploy.sh scripts folder mein jaa k
