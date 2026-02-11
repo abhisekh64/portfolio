@@ -1,46 +1,73 @@
 #!/bin/bash
-set -e  # Exit on any error
+set -e  # Exit immediately on error
+set -o pipefail  # Fail if any command in a pipe fails
 
 # -----------------------------
 # CONFIGURATION
 # -----------------------------
 REQUIREMENTS_FILE="requirements.txt"
 DOCKER_COMPOSE_FILE="docker-compose.yml"
+WEB_SERVICE_NAME="web"   # Name of the service in docker-compose.yml
+LOG_PREFIX="[DEPLOY]"
 
 # -----------------------------
-# CHECK REQUIREMENTS FILE
+# FUNCTIONS
 # -----------------------------
-if [ ! -f "$REQUIREMENTS_FILE" ]; then
-    echo "❌ ERROR: $REQUIREMENTS_FILE not found! Cannot proceed."
+log() {
+    echo -e "\033[1;34m$LOG_PREFIX\033[0m $1"
+}
+
+error_exit() {
+    echo -e "\033[1;31m$LOG_PREFIX ERROR:\033[0m $1"
     exit 1
-else
-    echo "📄 Found $REQUIREMENTS_FILE. Installing packages..."
-fi
+}
 
-# -----------------------------
-# INSTALL PACKAGES LOCALLY
-# -----------------------------
-echo "💻 Installing Python packages locally..."
-pip install -r $REQUIREMENTS_FILE --no-input
+check_file_exists() {
+    if [ ! -f "$1" ]; then
+        error_exit "$1 not found!"
+    fi
+}
 
-# -----------------------------
-# DOCKER: Build and Run
-# -----------------------------
-if [ -f "$DOCKER_COMPOSE_FILE" ]; then
-    echo "🐳 Building and running Docker containers..."
+docker_compose_up() {
+    log "Building and starting Docker containers..."
     docker-compose -f $DOCKER_COMPOSE_FILE build
     docker-compose -f $DOCKER_COMPOSE_FILE up -d
+}
 
-    echo "📦 Running Django migrations..."
-    docker-compose exec web python manage.py migrate
+docker_exec() {
+    local CMD="$1"
+    docker-compose exec $WEB_SERVICE_NAME bash -c "$CMD"
+}
 
-    echo "📂 Collecting static files inside Docker..."
-    docker-compose exec web python manage.py collectstatic --noinput
+# -----------------------------
+# MAIN FLOW
+# -----------------------------
+log "Starting deployment script..."
 
-    echo "🧪 Running Django tests..."
-    docker-compose exec web python manage.py test
-else
-    echo "⚠️  Docker compose file not found. Skipping Docker steps."
-fi
+# 1️⃣ Check requirements
+check_file_exists $REQUIREMENTS_FILE
 
-echo "✅ Script completed successfully!"
+# 2️⃣ Check docker-compose
+check_file_exists $DOCKER_COMPOSE_FILE
+
+# 3️⃣ Build and run containers
+docker_compose_up
+
+# 4️⃣ Install Python packages inside container (only if requirements changed)
+log "Installing Python packages inside container..."
+docker_exec "python3 -m pip install --upgrade pip"
+docker_exec "python3 -m pip install -r $REQUIREMENTS_FILE"
+
+# 5️⃣ Run Django migrations
+log "Running Django migrations..."
+docker_exec "python3 manage.py migrate --noinput"
+
+# 6️⃣ Collect static files
+log "Collecting static files..."
+docker_exec "python3 manage.py collectstatic --noinput"
+
+# 7️⃣ Run tests
+log "Running Django tests..."
+docker_exec "python3 manage.py test"
+
+log "✅ Deployment completed successfully!"
