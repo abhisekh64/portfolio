@@ -18,8 +18,7 @@ jobs:
                   script: |
                       cd /home/ec2-user/portfolio
                       git pull origin main
-                      docker-compose down
-                      docker-compose up -d --build
+                      bash .scripts/deploy.sh
 
 # yeh jo scripts hain vo starting se ending tak file ki routing karni padti hain
 # or jab ek baar aap apne project folder mein pahoch jaatein hain to aapko run karna hota hain deploy.sh scripts folder mein jaa k
