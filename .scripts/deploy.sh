@@ -72,3 +72,14 @@ log "Running Django tests..."
 docker_exec "python3 manage.py test"
 
 log "✅ Deployment completed successfully!"
+
+
+
+# check one by one ========================================
+
+# git add .scripts/deploy.sh
+# git update-index --chmod=+x .scripts/deploy.sh
+# git commit -m "Add deploy script with executable permission"
+# git push
+# test the
+# git ls-files --stage .scripts/deploy.sh
